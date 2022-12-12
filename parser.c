@@ -128,7 +128,7 @@ void isConst(char entite[])
 int checkconst(char entite[])
 {
     int posEntite = recherche(entite);
-    if (ts[posEntite].CONST == true)
+    if (ts[posEntite].CONST == true && strcmp(ts[posEntite].init,"-> oui") == 0 )
     {
         return 1;
     }

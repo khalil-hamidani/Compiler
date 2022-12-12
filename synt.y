@@ -28,12 +28,12 @@ declaration: declarationSimple
            | declarationFonction
 ;
 declarationSimple: listvar dp datatype pvg {if(doubleDeclaration(nomIdf)==0){insererType(nomIdf,type);}
-else printf("erreur Semantique: double declation de %s, a la ligne %d\n", nomIdf, numligne);}
+else printf("⚠️  Erreur Semantique: double declation de %s, a la ligne %d\n", nomIdf, numligne);}
                  | listconst dp mc_const datatype pvg {isConst(nomIdf);if(doubleDeclaration(nomIdf)==0){
 insererType(nomIdf,type);}
 else printf("erreur Semantique: double declation de %s, a la ligne %d\n", nomIdf, numligne);}
                 | listvar dp mc_const datatype pvg {if(doubleDeclaration(nomIdf)==0){insererType(nomIdf,type);}
-else printf("erreur Semantique: double declation de %s, a la ligne %d\n", nomIdf, numligne);}
+else printf("⚠️  Erreur Semantique: double declation de %s, a la ligne %d\n", nomIdf, numligne);}
 ;
 listvar: idf vg listvar 
        | idf {strcpy(nomIdf,$1);}

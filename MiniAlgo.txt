@@ -10,17 +10,17 @@ VAR
     INT Function Surface
     VAR
         max : INT; 
-        pi = 3.14 : CONST FLOAT; 
+        pi = -3.14 : CONST FLOAT; 
     BEGIN
         max = max * max;
         Return max;
     END
 BEGIN
-
     forbidden = 4 / 1;
     isColored = True;
     isColored = False;
-
+    angle = 5;
+    angl2 = 5;
     While (max > 2)
     BEGIN
         B = B + 2;  
