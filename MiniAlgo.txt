@@ -6,6 +6,7 @@ VAR
     isColored : BOOL; 
     angle = 5 : CONST INT;  
     angle  : CONST INT;
+    
     INT Function Surface
     VAR
         max : INT; 
