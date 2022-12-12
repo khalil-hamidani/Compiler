@@ -15,7 +15,6 @@ typedef struct element
     bool yess;
 } element;
 
-
 void yyerror();
 void insert(char nom[], char code[]);
 void print();
@@ -25,5 +24,7 @@ void insererType(char entite[], char type[]);
 void isConst(char entite[]);
 int checkconst(char entite[]);
 void initconst(char entite[]);
+void sauveIDF(char idf[]);
+void doubleDeclarationlistIDF(char type[]);
 
 #endif

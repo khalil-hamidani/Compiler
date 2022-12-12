@@ -1,26 +1,21 @@
 LANGAGE Mini_Algo
 VAR
 
+    hight, a, b, c, d : INT;  
     hight : INT;  
     isColored : BOOL; 
-    angle =  90 : CONST INT;  
-    angle2 : CONST INT;  
-    forbidden : INT;
-
+    angle = 5 : CONST INT;  
+    angle  : CONST INT;
     INT Function Surface
     VAR
         max : INT; 
-        pi = -3.14 : CONST FLOAT; 
+        pi = 3.14 : CONST FLOAT; 
     BEGIN
         max = max * max;
         Return max;
     END
 BEGIN
-    forbidden = 4 / 1;
-    isColored = True;
-    isColored = False;
-    angle = 5;
-    angl2 = 5;
+    angle = 10;
     While (max > 2)
     BEGIN
         B = B + 2;  

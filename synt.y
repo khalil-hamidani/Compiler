@@ -19,7 +19,7 @@
 %token <str>mc_int <str>mc_float <str>mc_bool mc_const <entier>num
 %%
 s: mc_langage idf mc_var listDeclaration mc_start instructions mc_end 
-{printf("syntax correct ✅\n"); YYACCEPT;}
+{printf("✅✅✅  Syntax correct\n"); YYACCEPT;}
 ;
 listDeclaration: declaration listDeclaration 
                | declaration
@@ -27,16 +27,15 @@ listDeclaration: declaration listDeclaration
 declaration: declarationSimple 
            | declarationFonction
 ;
-declarationSimple: listvar dp datatype pvg {if(doubleDeclaration(nomIdf)==0){insererType(nomIdf,type);}
-else printf("⚠️  Erreur Semantique: double declation de %s, a la ligne %d\n", nomIdf, numligne);}
+declarationSimple: listvar dp datatype pvg {doubleDeclarationlistIDF(type);}
                  | listconst dp mc_const datatype pvg {isConst(nomIdf);if(doubleDeclaration(nomIdf)==0){
 insererType(nomIdf,type);}
 else printf("erreur Semantique: double declation de %s, a la ligne %d\n", nomIdf, numligne);}
                 | listvar dp mc_const datatype pvg {if(doubleDeclaration(nomIdf)==0){insererType(nomIdf,type);}
-else printf("⚠️  Erreur Semantique: double declation de %s, a la ligne %d\n", nomIdf, numligne);}
+else printf("⚠️ ⚠️ ⚠️  Erreur Semantique: double declation de %s, a la ligne %d\n", nomIdf, numligne);}
 ;
-listvar: idf vg listvar 
-       | idf {strcpy(nomIdf,$1);}
+listvar: idf vg listvar {sauveIDF($1);}
+       | idf {sauveIDF($1); strcpy(nomIdf,$1);}
 ;
 listconst: idf aff num vg listconst {initconst($1);}
          | idf aff num {initconst($1); strcpy(nomIdf,$1);}
@@ -48,7 +47,7 @@ datatype: mc_int {strcpy(type,$1);}
 instructions : instruction instructions 
              | instruction
 ;
-instruction: idf aff op pvg {if(checkconst($1)== 1) printf("⚠️  Erreur semantique : Changement de valeur de la constante %s a la ligne %d\n",$1,numligne);}
+instruction: idf aff op pvg {if(checkconst($1)== 1) printf("⚠️ ⚠️ ⚠️  Erreur semantique : Changement de valeur de la constante %s a la ligne %d\n",$1,numligne);}
            | boucle
            | condition
 ;
@@ -56,7 +55,7 @@ op: idf math op
   | num math op
   | idf
   | bool
-  | num {if(($1 == 0) && (CodeOp == 4)) printf("⚠️  Erreur semantique: division sur 0 a la ligne %d\n", numligne);}
+  | num {if(($1 == 0) && (CodeOp == 4)) printf("⚠️ ⚠️ ⚠️  Erreur semantique: division sur 0 a la ligne %d\n", numligne);}
 ;
 math: pl {CodeOp=1;}
     | mn {CodeOp=2;}
