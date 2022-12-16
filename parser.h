@@ -28,5 +28,6 @@ void sauveIDF(char idf[]);
 void doubleDeclarationlistIDF(char type[]);
 void check_declaration(char C[]);
 int editlines(char c[],int size);
+void doubleDeclarationlistIDFConst(char type[]);
 
 #endif
