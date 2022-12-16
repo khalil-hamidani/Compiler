@@ -1,28 +1,29 @@
 LANGAGE Mini_Algo
 VAR
 
-    hight , a, b, c, d : INT;  
-    {a : FLOAT;}
-    isColored : BOOL; 
-    angle = -2 : CONST INT;    
-    test = 1 : CONST FLOAT;    {CONST NON DECLARE}
+    hight , a, b, c, d : INT;
+    isColored : BOOL;
+    angle1 = -2 ,angle2 = -2 , angle3 = -2: CONST INT;
+    test , test2 , test3 : CONST FLOAT;    {CONST NON DECLARE}
     max : INT;
 
     INT Function Surface
     VAR
         {max : INT;}
-        pi = 3.14 : CONST FLOAT; 
+        pi = 3.14 : CONST FLOAT;
     BEGIN
         max = max * max;
         Return max;
     END
 
-BEGIN 
+BEGIN
 
-    {cmnt
-    cmnt
-    cmnt}
-    max = 5 / 5;  
+    {this
+    is
+    a
+    the
+    voice}
+    max = 5 / 5;
 
     While (max > 2)
     BEGIN
@@ -35,4 +36,4 @@ BEGIN
         max = -5;
     END
     
-END 
+END

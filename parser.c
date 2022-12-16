@@ -35,6 +35,7 @@ void sauveIDF(char idf[]);
 void doubleDeclarationlistIDF(char type[]);
 void check_declaration(char C[]);
 int editlines(char c[], int size);
+void doubleDeclarationlistIDFConst(char type[]);
 
 TypeTS ts[100];
 int CpTabSym = 0;
@@ -60,7 +61,7 @@ void print()
     printf("\n/****************** Table de symboles ******************/\n");
     printf("_______________________________________________________________________\n");
     printf("|  ##  |   NomEntite  |   CodeEntite |   Type  | Constatnt |   Init   |\n");
-    int i = 0;
+    int i = 1;
     while (i < CpTabSym)
     {
         printf("|%4d  |%12s  |%8s      |%7s  |%7s    |%7s   |\n", i, ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].CONST ? "-> Oui" : "", ts[i].init);
@@ -113,11 +114,6 @@ int doubleDeclaration(char entite[])
         return 1;
 }
 
-void isConst(char entite[])
-{
-    int posEntite = recherche(entite);
-    ts[posEntite].CONST = true;
-}
 
 int checkconst(char entite[])
 {
@@ -169,6 +165,77 @@ void doubleDeclarationlistIDF(char type[])
     }
     idfcount = 0;
 }
+
+
+
+
+
+
+
+
+
+void isConst(char entite[])
+{
+    int posEntite = recherche(entite);
+    ts[posEntite].CONST = true;
+}
+
+void doubleDeclarationlistIDFConst(char type[])
+{
+    int i;
+    int posEntite;
+    for (i = 0; i < idfcount; i++)
+    {
+        posEntite = recherche(listIDF[i]);
+
+        if (strcmp(ts[posEntite].TypeEntite, "") == 0)
+        {
+            insererType(listIDF[i], type);
+            isConst(ts[posEntite].NomEntite);
+        }
+        else
+        {
+            printf("⚠️ ⚠️ ⚠️  Erreur semantique: double declaration de la variable \"%s\" a la ligne %d\n", listIDF[i], numligne);
+        }
+    }
+
+    for (i = 0; i < idfcount; i++)
+    {
+        strcpy(listIDF[i], "");
+    }
+    idfcount = 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void check_declaration(char c[])
 {

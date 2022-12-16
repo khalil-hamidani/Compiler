@@ -29,17 +29,14 @@ declaration: declarationSimple
            | declarationFonction
 ;
 declarationSimple: listvar dp datatype pvg {doubleDeclarationlistIDF(type);}
-                 | listconst dp mc_const datatype pvg {isConst(nomIdf);if(doubleDeclaration(nomIdf)==0){
-insererType(nomIdf,type);}
-else printf("⚠️ ⚠️ ⚠️  Erreur Semantique: double declation de %s, a la ligne %d\n", nomIdf, numligne);}
-                | listvar dp mc_const datatype pvg {if(doubleDeclaration(nomIdf)==0){insererType(nomIdf,type);}
-else printf("⚠️ ⚠️ ⚠️  Erreur Semantique: double declation de %s, a la ligne %d\n", nomIdf, numligne);}
+                 | listconst dp mc_const datatype pvg {doubleDeclarationlistIDFConst(type);} //here
+                | listvar dp mc_const datatype pvg {doubleDeclarationlistIDFConst(type);} //here
 ;
 listvar: idf vg listvar {sauveIDF($1);}
        | idf {sauveIDF($1);}
 ;
-listconst: idf aff num vg listconst {sauveIDF($1); initconst($1); strcpy(nomIdf,$1);} // hna balak sauveIDF($1);
-         | idf aff num {initconst($1); strcpy(nomIdf,$1);}
+listconst: idf aff num vg listconst {sauveIDF($1); initconst($1); strcpy(nomIdf,$1);}
+         | idf aff num {sauveIDF($1); initconst($1); strcpy(nomIdf,$1);}
 ;
 datatype: mc_int {strcpy(type,$1);}
         | mc_float {strcpy(type,$1);}
