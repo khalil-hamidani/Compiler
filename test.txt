@@ -1,0 +1,51 @@
+LANGAGE MiniAlgo
+VAR 
+
+K,J,L : BOOL;
+a,b,c : INT;
+x :INT;
+x : BOOL;
+MSG=10:CONST INT; {this is a comment}
+s=15.5 : CONST FLOAT;
+w=5,r=7,t=7: CONST FLOAT;
+aA1:FLOAT;
+U:CONST INT;
+
+
+BOOL Function first_func
+VAR
+X:FLOAT;
+BEGIN
+
+ K=1.5;
+ p=p;
+ y=x+z;
+ p=12/0;
+ K=L*8; {this is a comment}
+ K=15*K/100;
+{comment}
+
+ Return K;
+END
+
+BEGIN
+  A=A+B;
+  MSG=11;
+  t=5;
+  U=16;
+  
+
+  While (d==0)
+   BEGIN
+     q=q+p;
+   
+  END
+
+  If(p==s)
+  BEGIN 
+     a=a+p;
+     a=17; {this is a comment}
+  END
+
+
+END

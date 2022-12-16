@@ -33,10 +33,12 @@ int checkconst(char entite[]);
 void initconst(char entite[]);
 void sauveIDF(char idf[]);
 void doubleDeclarationlistIDF(char type[]);
+void check_declaration(char C[]);
+int editlines(char c[], int size);
 
 TypeTS ts[100];
 int CpTabSym = 0;
-char listIDF[20][20];
+char listIDF[20][80];
 
 int main(int argc, char const *argv[])
 {
@@ -72,7 +74,6 @@ void insert(char nom[], char code[])
 {
     if (recherche(nom) == -1)
     {
-
         strcpy(ts[CpTabSym].NomEntite, nom);
         strcpy(ts[CpTabSym].CodeEntite, code);
         CpTabSym++;
@@ -85,7 +86,10 @@ int recherche(char entite[])
     while (i < CpTabSym)
     {
         if (strcmp(entite, ts[i].NomEntite) == 0)
+        {
             return i;
+        }
+
         i++;
     }
     return -1;
@@ -155,7 +159,7 @@ void doubleDeclarationlistIDF(char type[])
         }
         else
         {
-            printf("erreur semantique: double declaration de la variable \"%s\" a la ligne %d\n", listIDF[i], numligne);
+            printf("⚠️ ⚠️ ⚠️  Erreur semantique: double declaration de la variable \"%s\" a la ligne %d\n", listIDF[i], numligne);
         }
     }
 
@@ -164,6 +168,27 @@ void doubleDeclarationlistIDF(char type[])
         strcpy(listIDF[i], "");
     }
     idfcount = 0;
+}
+
+void check_declaration(char c[])
+{
+    int trouv = recherche(c);
+    if (strcmp(ts[trouv].TypeEntite, "") == 0)
+    {
+        printf("⚠️  Errreur semantique a la ligne %d : \"%s\" ==> non déclaré\n", numligne, c);
+    }
+}
+int editlines(char c[], int size)
+{
+    int count = 0;
+    for (int i = 0; i < size; i++)
+    {
+        if (c[i] == '\n')
+        {
+            count++;
+        }
+    }
+    return count;
 }
 void yyerror()
 {

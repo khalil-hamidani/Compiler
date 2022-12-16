@@ -26,5 +26,7 @@ int checkconst(char entite[]);
 void initconst(char entite[]);
 void sauveIDF(char idf[]);
 void doubleDeclarationlistIDF(char type[]);
+void check_declaration(char C[]);
+int editlines(char c[],int size);
 
 #endif

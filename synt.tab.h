@@ -50,13 +50,13 @@ extern int yydebug;
   enum yytokentype
   {
     idf = 258,
-    mc_langage = 259,
-    mc_var = 260,
-    mc_start = 261,
-    mc_end = 262,
-    mc_function = 263,
-    mc_return = 264,
-    err = 265,
+    mc_var = 259,
+    mc_start = 260,
+    mc_end = 261,
+    headFunction = 262,
+    mc_return = 263,
+    err = 264,
+    headMain = 265,
     dp = 266,
     vg = 267,
     pvg = 268,
@@ -81,7 +81,8 @@ extern int yydebug;
     mc_float = 287,
     mc_bool = 288,
     mc_const = 289,
-    num = 290
+    numint = 290,
+    numflt = 291
   };
 #endif
 
@@ -92,9 +93,10 @@ union YYSTYPE
 #line 12 "synt.y"
 
     int entier;
+    float reel;
     char *str;
 
-#line 98 "synt.tab.h"
+#line 100 "synt.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

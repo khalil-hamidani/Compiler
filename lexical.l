@@ -10,11 +10,13 @@
 
 lettre [a-zA-Z]
 chiffre [0-9]
-num [+-]?{chiffre}+(.{chiffre}+)?
+numint [-]?{chiffre}+
+numflt [-]?{chiffre}+(.{chiffre}+)?
 idf {lettre}({lettre}|{chiffre}|"_"{lettre}|{chiffre})*
 cmnt \{([^}])*\}
+headMain LANGAGE" "{idf}
+headFunction Function" "{idf}
 %%
-LANGAGE return mc_langage;
 VAR return mc_var;
 BEGIN return mc_start;
 END return mc_end;
@@ -22,16 +24,18 @@ INT {yylval.str = strdup(yytext); return mc_int;}
 FLOAT {yylval.str = strdup(yytext); return mc_float;}
 BOOL {yylval.str = strdup(yytext); return mc_bool;}
 CONST {yylval.str = strdup(yytext); return mc_const;}
-Function return mc_function;
 Return return mc_return;
 While return mc_boucle;
 If return mc_cond;
 True return mc_true;
 False return mc_false;
+{headMain} return headMain;
+{headFunction} return headFunction;
+{numint} {yylval.entier=atoi(yytext); return numint;}
+{numflt} {yylval.reel=atof(yytext); return numflt;}
 {idf} {if (yyleng <=12) {yylval.str = strdup(yytext);insert(yytext,"idf"); return idf;}
 else printf("Erreur lexicale : \"%s\" trop longue\nLongueur maximale : 12 Caractere\n",yytext); return err;};
-{cmnt}
-{num} {yylval.entier=atoi(yytext); return num;}
+{cmnt} {numligne += editlines(yytext,yyleng);}
 : return dp;
 ; return pvg;
 , return vg;
@@ -50,5 +54,5 @@ else printf("Erreur lexicale : \"%s\" trop longue\nLongueur maximale : 12 Caract
 ")" return closeb;
 [ \t] 
 \n numligne++;
-. {printf("❌❌❌ Erreur lexicale a la ligne : %d : \"%s\" \n",yylineno,yytext); return err;}
+. {printf(" ❌❌❌ Erreur lexicale a la ligne : %d : \"%s\" \n",numligne,yytext); return err;}
 
