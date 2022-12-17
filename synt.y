@@ -8,6 +8,10 @@
     extern char *yytext;
     char type[15];
     char nomIdf[20];
+    int currScope = 0;
+    int funcCount = 0;
+    extern char rou7brk[50];
+    char test[50];
 %}
 %union{
     int entier;
@@ -19,7 +23,7 @@
 %token  mc_boucle mc_cond mc_true mc_false
 %token <str>mc_int <str>mc_float <str>mc_bool mc_const <entier>numint <reel>numflt
 %%
-s: headMain mc_var listDeclaration mc_start instructions mc_end 
+s: headMain{printf(" main : %s \n",$1);} mc_var listDeclaration mc_start instructions mc_end 
 {printf("\n✅✅✅  Syntax correct\n"); YYACCEPT;}
 ;
 listDeclaration: declaration listDeclaration 
@@ -29,8 +33,8 @@ declaration: declarationSimple
            | declarationFonction
 ;
 declarationSimple: listvar dp datatype pvg {doubleDeclarationlistIDF(type);}
-                 | listconst dp mc_const datatype pvg {doubleDeclarationlistIDFConst(type);} //here
-                | listvar dp mc_const datatype pvg {doubleDeclarationlistIDFConst(type);} //here
+                 | listconst dp mc_const datatype pvg {doubleDeclarationlistIDFConst(type);} 
+                | listvar dp mc_const datatype pvg {doubleDeclarationlistIDFConst(type);} 
 ;
 listvar: idf vg listvar {sauveIDF($1);}
        | idf {sauveIDF($1);}
@@ -80,8 +84,9 @@ opRelationnels: eg
               | infeg 
               | supeg
 ;
-declarationFonction: datatype headFunction mc_var listDeclaration mc_start instructions return mc_end
+declarationFonction: datatype headFunction{funcCount++; currScope = funcCount;} mc_var listDeclaration mc_start instructions return mc_end{currScope = 0; printf("function : %s \n",$2);}
 ;
+
 return: mc_return idf pvg {check_declaration($2);}
       | mc_return num pvg
 ;

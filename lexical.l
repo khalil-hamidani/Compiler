@@ -14,8 +14,8 @@ numint [-]?{chiffre}+
 numflt [-]?{chiffre}+(.{chiffre}+)?
 idf {lettre}({lettre}|{chiffre}|"_"{lettre}|{chiffre})*
 cmnt \{([^}])*\}
-headMain LANGAGE" "{idf}
-headFunction Function" "{idf}
+headMain LANGAGE" "+{idf}
+headFunction1 Function" "+{idf}
 %%
 VAR return mc_var;
 BEGIN return mc_start;
@@ -29,8 +29,8 @@ While return mc_boucle;
 If return mc_cond;
 True return mc_true;
 False return mc_false;
-{headMain} return headMain;
-{headFunction} return headFunction;
+{headMain} {printf("head main : %s\n",yytext); return headMain;}
+{headFunction1} { printf("head function : %s\n",yytext);  return headFunction;}
 {numint} {yylval.entier=atoi(yytext); return numint;}
 {numflt} {yylval.reel=atof(yytext); return numflt;}
 {idf} {if (yyleng <=12) {yylval.str = strdup(yytext);insert(yytext,"idf"); return idf;}

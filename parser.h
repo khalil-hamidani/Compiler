@@ -20,7 +20,7 @@ void insert(char nom[], char code[]);
 void print();
 int recherche(char entite[]);
 int doubleDeclaration(char entite[]);
-void insererType(char entite[], char type[]);
+void insererType(char entite[], char type[],int scope);
 void isConst(char entite[]);
 int checkconst(char entite[]);
 void initconst(char entite[]);

@@ -10,6 +10,7 @@ extern char *yytext;
 extern FILE *yyin;
 extern char type[15];
 extern char nomIdf[20];
+extern int currScope;
 clock_t start, end;
 double cpu_time_used;
 
@@ -20,14 +21,16 @@ typedef struct
     char TypeEntite[20];
     bool CONST;
     char init[20];
+    int scope;
 } TypeTS;
-
+//?  int max , max.scope = 1   vs int max , max.scope = 2 ===> normal
+//?  int max , max.scope = 1   vs int max , max.scope = 1 ===> mashi normal
 void yyerror();
 void insert(char nom[], char code[]);
 void print();
 int recherche(char entite[]);
 int doubleDeclaration(char entite[]);
-void insererType(char entite[], char type[]);
+void insererType(char entite[], char type[], int scope);
 void isConst(char entite[]);
 int checkconst(char entite[]);
 void initconst(char entite[]);
@@ -59,15 +62,36 @@ int main(int argc, char const *argv[])
 void print()
 {
     printf("\n/****************** Table de symboles ******************/\n");
-    printf("_______________________________________________________________________\n");
-    printf("|  ##  |   NomEntite  |   CodeEntite |   Type  | Constatnt |   Init   |\n");
-    int i = 1;
+    printf("________________________________________________________________________________\n");
+    printf("|  ##  |   NomEntite  |   CodeEntite |   Type  | Constatnt |   Init   |  Scope |\n");
+    int i = 0;
     while (i < CpTabSym)
     {
-        printf("|%4d  |%12s  |%8s      |%7s  |%7s    |%7s   |\n", i, ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].CONST ? "-> Oui" : "", ts[i].init);
+        // char scope[30] = "";
+        // switch (ts[i].scope)
+        // {
+        //     case 0:
+        //         strcpy(scope,"main");
+        //     break;
+        //     case 1:
+        //         strcpy(scope,"Function 1");
+        //     break;
+        //     case 2:
+        //         strcpy(scope,"Function 2");
+        //     break;
+        //     case 3:
+        //         strcpy(scope,"Function 3");
+        //     break;
+        //     case 4:
+        //         strcpy(scope,"Function 4");
+        //     break;
+        //     default:
+        //         break;
+        // }
+        printf("|%4d  |%12s  |%8s      |%7s  |%7s    |%7s   |%5d   |\n", i + 1, ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].CONST ? "-> Oui" : "", ts[i].init, ts[i].scope);
         i++;
     }
-    printf("▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔");
+    printf("▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔");
     printf("\n/*******************************************************/\n");
 }
 
@@ -96,12 +120,13 @@ int recherche(char entite[])
     return -1;
 }
 
-void insererType(char entite[], char type[])
+void insererType(char entite[], char type[], int scope)
 {
     int posEntite = recherche(entite);
     if (posEntite != -1)
     {
         strcpy(ts[posEntite].TypeEntite, type);
+        ts[posEntite].scope = scope;
     }
 }
 
@@ -113,7 +138,6 @@ int doubleDeclaration(char entite[])
     else
         return 1;
 }
-
 
 int checkconst(char entite[])
 {
@@ -151,7 +175,7 @@ void doubleDeclarationlistIDF(char type[])
 
         if (strcmp(ts[posEntite].TypeEntite, "") == 0)
         {
-            insererType(listIDF[i], type);
+            insererType(listIDF[i], type, currScope);
         }
         else
         {
@@ -165,14 +189,6 @@ void doubleDeclarationlistIDF(char type[])
     }
     idfcount = 0;
 }
-
-
-
-
-
-
-
-
 
 void isConst(char entite[])
 {
@@ -190,7 +206,7 @@ void doubleDeclarationlistIDFConst(char type[])
 
         if (strcmp(ts[posEntite].TypeEntite, "") == 0)
         {
-            insererType(listIDF[i], type);
+            insererType(listIDF[i], type, currScope);
             isConst(ts[posEntite].NomEntite);
         }
         else
@@ -205,37 +221,6 @@ void doubleDeclarationlistIDFConst(char type[])
     }
     idfcount = 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void check_declaration(char c[])
 {
