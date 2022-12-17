@@ -60,20 +60,20 @@ int main(int argc, char const *argv[])
 
 void print()
 {
-    printf("\n/******************************** Table de symboles ********************************/\n");
-    printf("____________________________________________________________________________________\n");
-    printf("|  ##  |   NomEntite  |   CodeEntite |   Type  | Constatnt |   Init   |    Scope   |\n");
+    printf("\n/******************************* Table de symboles *******************************/\n");
+    printf("___________________________________________________________________________________\n");
+    printf("|  ##  |   NomEntite  |   CodeEntite |   Type  | Constatnt |   Init   |    Scope  |\n");
     int i = 0;
     while (i < CpTabSym)
     {
         if (strcmp(ts[i].TypeEntite, "") != 0)
         {
-            printf("|%4d  |%12s  |%8s      |%7s  |%7s    |%7s   |%9s   |\n", i, ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].CONST ? "-> Oui" : "", ts[i].init, ts[i].scope);
+            printf("|%4d  |%12s  |%8s      |%7s  |%7s    |%7s   |%9s  |\n", i, ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].CONST ? "-> Oui" : "", ts[i].init, ts[i].scope);
         }
         i++;
     }
-    printf("▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔");
-    printf("\n/***********************************************************************************/\n");
+    printf("▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔");
+    printf("\n/*********************************************************************************/\n");
 }
 
 void insert(char nom[], char code[])
