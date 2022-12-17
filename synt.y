@@ -6,7 +6,7 @@
     int CodeOp=0;
     extern int numligne;
     extern char *yytext;
-    char type[15];
+    char type[6];
     char nomIdf[20];
     char currScope[30] = "Main";
 %}
@@ -20,7 +20,7 @@
 %token  mc_boucle mc_cond mc_true mc_false
 %token <str>mc_int <str>mc_float <str>mc_bool mc_const <entier>numint <reel>numflt
 %%
-s: mc_langage idf{printf(" main : %s \n",$2);} mc_var listDeclaration mc_start instructions mc_end 
+s: mc_langage idf mc_var listDeclaration mc_start instructions mc_end 
 {printf("\n✅✅✅  Syntax correct\n"); YYACCEPT;}
 ;
 listDeclaration: declaration listDeclaration 
@@ -46,7 +46,8 @@ datatype: mc_int {strcpy(type,$1);}
 instructions : instruction instructions 
              | instruction
 ;
-instruction: idf aff op pvg {check_declaration($1); if(checkconst($1)== 1) printf("⚠️ ⚠️ ⚠️  Erreur semantique : Changement de valeur de la constante %s a la ligne %d\n",$1,numligne);}
+instruction: idf aff op pvg {check_declaration($1); if(checkconst($1)== 1) printf("⚠️ ⚠️ ⚠️  Erreur semantique : Changement de valeur de la constante \"%s\" a la ligne %d\n",$1,numligne);
+if (checkconstintit($1) == 1) initconst($1);}
            | boucle
            | condition
 ;
@@ -67,12 +68,13 @@ num: numint {if(($1 == 0) && (CodeOp == 4)) printf("⚠️ ⚠️ ⚠️  Erreur
 bool: mc_true
     | mc_false
 ;
-boucle: mc_boucle openb compare closeb mc_start instructions mc_end
+boucle: mc_boucle openb cond closeb mc_start instructions mc_end
 ;
-condition: mc_cond openb compare closeb mc_start instructions mc_end
+condition: mc_cond openb cond closeb mc_start instructions mc_end
 ;
-compare: idf opRelationnels idf {check_declaration($1); check_declaration($3);}
+cond: idf opRelationnels idf {check_declaration($1); check_declaration($3);}
        | idf opRelationnels num {check_declaration($1);}
+       | num opRelationnels num;
 ;
 opRelationnels: eg 
               | inf 
@@ -83,7 +85,6 @@ opRelationnels: eg
 ;
 declarationFonction: datatype mc_func idf {strcpy(currScope,$3);} mc_var listDeclaration mc_start instructions return mc_end{strcpy(currScope,"Main");}
 ;
-
 return: mc_return idf pvg {check_declaration($2);}
       | mc_return num pvg
 ;

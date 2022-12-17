@@ -38,19 +38,19 @@ VAR
 
 BEGIN
 
-    {this
+    {this   
     is
-    a
     the
     voice}
+    {const non init is const check ............................}
     max = max - 2;
-
+    test = 5;
     While (max > 2)
     BEGIN
       max = 5 / 1;
     END
 
-    If (max == 2)
+    If (6 <= 2)
     BEGIN
         max = 5 / 5;
         max = -5;

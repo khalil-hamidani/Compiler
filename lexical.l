@@ -10,8 +10,8 @@
 
 lettre [a-zA-Z]
 chiffre [0-9]
-numint [-]?{chiffre}+
-numflt [-]?{chiffre}+(.{chiffre}+)?
+numint [-]?{chiffre}+               
+numflt [-]?{chiffre}+(.{chiffre}+)?                 
 idf {lettre}({lettre}|{chiffre}|"_"{lettre}|{chiffre})*
 cmnt \{([^}])*\}
 %%

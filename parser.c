@@ -4,7 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include "synt.tab.h"
-
+//!---------------------
 extern int numligne;
 extern char *yytext;
 extern FILE *yyin;
@@ -13,7 +13,7 @@ extern char nomIdf[20];
 extern char currScope[];
 clock_t start, end;
 double cpu_time_used;
-
+//!---------------------
 typedef struct
 {
     char NomEntite[20];
@@ -23,27 +23,26 @@ typedef struct
     char init[20];
     char scope[20];
 } TypeTS;
-//?  int max , max.scope = 1   vs int max , max.scope = 2 ===> normal
-//?  int max , max.scope = 1   vs int max , max.scope = 1 ===> mashi normal
+//!---------------------
 void yyerror();
 void insert(char nom[], char code[]);
 void print();
 int recherche(char entite[]);
-int doubleDeclaration(char entite[]);
 void insererType(char entite[], char type[], char scope[]);
 void isConst(char entite[]);
 int checkconst(char entite[]);
+int checkconstintit(char entite[]);
 void initconst(char entite[]);
 void sauveIDF(char idf[]);
 void doubleDeclarationlistIDF(char type[]);
 void check_declaration(char C[]);
 int editlines(char c[], int size);
 void doubleDeclarationlistIDFConst(char type[]);
-
+//!---------------------
 TypeTS ts[100];
 int CpTabSym = 0;
-char listIDF[20][80];
-
+char listIDF[20][100];
+//!---------------------
 int main(int argc, char const *argv[])
 {
     if (argc > 1)
@@ -67,7 +66,10 @@ void print()
     int i = 0;
     while (i < CpTabSym)
     {
-        printf("|%4d  |%12s  |%8s      |%7s  |%7s    |%7s   |%9s   |\n", i + 1, ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].CONST ? "-> Oui" : "", ts[i].init, ts[i].scope);
+        if (strcmp(ts[i].TypeEntite, "") != 0)
+        {
+            printf("|%4d  |%12s  |%8s      |%7s  |%7s    |%7s   |%9s   |\n", i, ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].CONST ? "-> Oui" : "", ts[i].init, ts[i].scope);
+        }
         i++;
     }
     printf("▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔");
@@ -105,17 +107,8 @@ void insererType(char entite[], char type[], char scope[])
     if (posEntite != -1)
     {
         strcpy(ts[posEntite].TypeEntite, type);
-        strcpy(ts[posEntite].scope , scope);
+        strcpy(ts[posEntite].scope, scope);
     }
-}
-
-int doubleDeclaration(char entite[])
-{
-    int posEntite = recherche(entite);
-    if (strcmp(ts[posEntite].TypeEntite, "") == 0)
-        return 0;
-    else
-        return 1;
 }
 
 int checkconst(char entite[])
@@ -130,7 +123,14 @@ int checkconst(char entite[])
         return 0;
     }
 }
-
+int checkconstintit(char entite[])
+{
+    int posEntite = recherche(entite);
+    if (ts[posEntite].CONST == true){
+        return 1;
+    }
+    else return 0;
+}
 void initconst(char entite[])
 {
     int posEntite = recherche(entite);

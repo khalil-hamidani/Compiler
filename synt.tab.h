@@ -53,38 +53,36 @@ extern int yydebug;
     mc_var = 259,
     mc_start = 260,
     mc_end = 261,
-    headFunction = 262,
-    mc_return = 263,
-    err = 264,
-    headMain = 265,
-    mc_langage = 266,
-    mc_func = 267,
-    dp = 268,
-    vg = 269,
-    pvg = 270,
-    aff = 271,
-    pl = 272,
-    mn = 273,
-    mul = 274,
-    divi = 275,
-    eg = 276,
-    inf = 277,
-    sup = 278,
-    diff = 279,
-    infeg = 280,
-    supeg = 281,
-    openb = 282,
-    closeb = 283,
-    mc_boucle = 284,
-    mc_cond = 285,
-    mc_true = 286,
-    mc_false = 287,
-    mc_int = 288,
-    mc_float = 289,
-    mc_bool = 290,
-    mc_const = 291,
-    numint = 292,
-    numflt = 293
+    mc_return = 262,
+    err = 263,
+    mc_langage = 264,
+    mc_func = 265,
+    dp = 266,
+    vg = 267,
+    pvg = 268,
+    aff = 269,
+    pl = 270,
+    mn = 271,
+    mul = 272,
+    divi = 273,
+    eg = 274,
+    inf = 275,
+    sup = 276,
+    diff = 277,
+    infeg = 278,
+    supeg = 279,
+    openb = 280,
+    closeb = 281,
+    mc_boucle = 282,
+    mc_cond = 283,
+    mc_true = 284,
+    mc_false = 285,
+    mc_int = 286,
+    mc_float = 287,
+    mc_bool = 288,
+    mc_const = 289,
+    numint = 290,
+    numflt = 291
   };
 #endif
 
@@ -92,13 +90,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 14 "synt.y"
+#line 13 "synt.y"
 
     int entier;
     float reel;
     char *str;
 
-#line 102 "synt.tab.h"
+#line 100 "synt.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
