@@ -10,7 +10,7 @@ extern char *yytext;
 extern FILE *yyin;
 extern char type[15];
 extern char nomIdf[20];
-extern int currScope;
+extern char currScope[];
 clock_t start, end;
 double cpu_time_used;
 
@@ -21,7 +21,7 @@ typedef struct
     char TypeEntite[20];
     bool CONST;
     char init[20];
-    int scope;
+    char scope[20];
 } TypeTS;
 //?  int max , max.scope = 1   vs int max , max.scope = 2 ===> normal
 //?  int max , max.scope = 1   vs int max , max.scope = 1 ===> mashi normal
@@ -30,7 +30,7 @@ void insert(char nom[], char code[]);
 void print();
 int recherche(char entite[]);
 int doubleDeclaration(char entite[]);
-void insererType(char entite[], char type[], int scope);
+void insererType(char entite[], char type[], char scope[]);
 void isConst(char entite[]);
 int checkconst(char entite[]);
 void initconst(char entite[]);
@@ -61,38 +61,17 @@ int main(int argc, char const *argv[])
 
 void print()
 {
-    printf("\n/****************** Table de symboles ******************/\n");
-    printf("________________________________________________________________________________\n");
-    printf("|  ##  |   NomEntite  |   CodeEntite |   Type  | Constatnt |   Init   |  Scope |\n");
+    printf("\n/******************************** Table de symboles ********************************/\n");
+    printf("____________________________________________________________________________________\n");
+    printf("|  ##  |   NomEntite  |   CodeEntite |   Type  | Constatnt |   Init   |    Scope   |\n");
     int i = 0;
     while (i < CpTabSym)
     {
-        // char scope[30] = "";
-        // switch (ts[i].scope)
-        // {
-        //     case 0:
-        //         strcpy(scope,"main");
-        //     break;
-        //     case 1:
-        //         strcpy(scope,"Function 1");
-        //     break;
-        //     case 2:
-        //         strcpy(scope,"Function 2");
-        //     break;
-        //     case 3:
-        //         strcpy(scope,"Function 3");
-        //     break;
-        //     case 4:
-        //         strcpy(scope,"Function 4");
-        //     break;
-        //     default:
-        //         break;
-        // }
-        printf("|%4d  |%12s  |%8s      |%7s  |%7s    |%7s   |%5d   |\n", i + 1, ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].CONST ? "-> Oui" : "", ts[i].init, ts[i].scope);
+        printf("|%4d  |%12s  |%8s      |%7s  |%7s    |%7s   |%9s   |\n", i + 1, ts[i].NomEntite, ts[i].CodeEntite, ts[i].TypeEntite, ts[i].CONST ? "-> Oui" : "", ts[i].init, ts[i].scope);
         i++;
     }
-    printf("▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔");
-    printf("\n/*******************************************************/\n");
+    printf("▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔");
+    printf("\n/***********************************************************************************/\n");
 }
 
 void insert(char nom[], char code[])
@@ -120,13 +99,13 @@ int recherche(char entite[])
     return -1;
 }
 
-void insererType(char entite[], char type[], int scope)
+void insererType(char entite[], char type[], char scope[])
 {
     int posEntite = recherche(entite);
     if (posEntite != -1)
     {
         strcpy(ts[posEntite].TypeEntite, type);
-        ts[posEntite].scope = scope;
+        strcpy(ts[posEntite].scope , scope);
     }
 }
 

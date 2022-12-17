@@ -8,22 +8,19 @@
     extern char *yytext;
     char type[15];
     char nomIdf[20];
-    int currScope = 0;
-    int funcCount = 0;
-    extern char rou7brk[50];
-    char test[50];
+    char currScope[30] = "Main";
 %}
 %union{
     int entier;
     float reel;
     char *str;
 }
-%token <str>idf mc_var mc_start mc_end headFunction mc_return err headMain
+%token <str>idf mc_var mc_start mc_end mc_return err mc_langage mc_func
 %token dp vg pvg aff pl mn mul divi eg inf sup diff infeg supeg openb closeb 
 %token  mc_boucle mc_cond mc_true mc_false
 %token <str>mc_int <str>mc_float <str>mc_bool mc_const <entier>numint <reel>numflt
 %%
-s: headMain{printf(" main : %s \n",$1);} mc_var listDeclaration mc_start instructions mc_end 
+s: mc_langage idf{printf(" main : %s \n",$2);} mc_var listDeclaration mc_start instructions mc_end 
 {printf("\n✅✅✅  Syntax correct\n"); YYACCEPT;}
 ;
 listDeclaration: declaration listDeclaration 
@@ -84,7 +81,7 @@ opRelationnels: eg
               | infeg 
               | supeg
 ;
-declarationFonction: datatype headFunction{funcCount++; currScope = funcCount;} mc_var listDeclaration mc_start instructions return mc_end{currScope = 0; printf("function : %s \n",$2);}
+declarationFonction: datatype mc_func idf {strcpy(currScope,$3);} mc_var listDeclaration mc_start instructions return mc_end{strcpy(currScope,"Main");}
 ;
 
 return: mc_return idf pvg {check_declaration($2);}
