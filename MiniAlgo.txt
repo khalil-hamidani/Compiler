@@ -3,10 +3,9 @@ VAR
 
     hight : INT;
     isColored : BOOL;
-    aaaa : INT;
-    {aaaa : FLOAT;}
+    var : INT;
     angle1 = -2 ,angle2 = -2 , angle3 = -2: CONST INT;
-    test , test2 , test3 : CONST FLOAT;    {CONST NON DECLARE}
+    test1 , test2 , test3 : CONST FLOAT;    {CONST NON DECLARE}
     max : INT;
 
     BOOL Function Surface
@@ -38,13 +37,14 @@ VAR
 
 BEGIN
 
-    {this   
-    is
-    the
-    voice}
-    {const non init is const check ............................}
+    {This 
+    is a multiple
+    line 
+    comment}
+
     max = max - 2;
-    test = 5;
+    test1 = 5;
+
     While (max > 2)
     BEGIN
       max = 5 / 1;
