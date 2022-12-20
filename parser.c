@@ -126,10 +126,12 @@ int checkconst(char entite[])
 int checkconstintit(char entite[])
 {
     int posEntite = recherche(entite);
-    if (ts[posEntite].CONST == true){
+    if (ts[posEntite].CONST == true)
+    {
         return 1;
     }
-    else return 0;
+    else
+        return 0;
 }
 void initconst(char entite[])
 {
@@ -206,7 +208,7 @@ void check_declaration(char c[])
     int trouv = recherche(c);
     if (strcmp(ts[trouv].TypeEntite, "") == 0)
     {
-        printf("⚠️  Errreur semantique a la ligne %d : \"%s\" ==> non déclaré\n", numligne, c);
+        printf("⚠️ ⚠️ ⚠️  Errreur semantique a la ligne %d : \"%s\" ==> non déclaré\n", numligne, c);
     }
 }
 int editlines(char c[], int size)

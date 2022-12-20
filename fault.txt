@@ -1,0 +1,34 @@
+LANGAGE Mini_Algo
+VAR 
+    max , min , temp : INT;
+    mod , rest : FLOAT;
+
+    {ABCD rectangle}
+    AB = 5 , BC = 6 : CONST INT;
+    {max : INT;}    {Double declaration}
+
+    INT Function Surface1
+        VAR 
+            surface : INT;
+            max : INT;
+        BEGIN
+            surface = AB / 0 ;      {div sur 0}
+            Return surface;
+        END
+
+BEGIN
+
+    hight = AB ;     {IDF non declare}
+    BC = 10;
+
+    While ( CD >= 1 )
+        BEGIN
+            CD = CD + 1;
+        END
+
+    If ( 5 == 5)   
+        BEGIN
+            max = AB                          + BC / 2 * 10 ;
+        END
+
+END

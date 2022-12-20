@@ -42,7 +42,7 @@ BEGIN
     line 
     comment}
 
-    max = max - 2;
+    max = max;
     test1 = 5;
 
     While (max > 2)
