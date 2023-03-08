@@ -52,7 +52,7 @@ BEGIN
 
     If (6 <= 2)
     BEGIN
-        max = 5 / 5;
+        max = 5 / 0;
         max = -5;
     END
     
